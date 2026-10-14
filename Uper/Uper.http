@@ -1,0 +1,6 @@
+@Uper_HostAddress = http://localhost:5189
+
+GET {{Uper_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
