@@ -7,21 +7,22 @@ namespace Uper.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext context;
-        public IGenericRepo<User> user { get; }
+        public IUser user { get; }
 
         public IGenericRepo<Vehicle> vehicle { get; }
 
-        public IGenericRepo<Ride> ride { get; }
+        public IRide ride { get; }
+        public IPayment payment { get; }
 
-        public IGenericRepo<Payment> payment { get; }
+        public IRating rating { get; }
 
-        public IGenericRepo<Rating> rating { get; }
+        public IAuth auth { get; }
 
         public async Task Save()
         {
           await  context.SaveChangesAsync();
         }
-        public UnitOfWork(AppDbContext _context, IGenericRepo<User> _user, IGenericRepo<Vehicle> _vehicle, IGenericRepo<Ride> _ride, IGenericRepo<Payment> _payment, IGenericRepo<Rating> _rating)
+        public UnitOfWork(AppDbContext _context, IUser _user, IGenericRepo<Vehicle> _vehicle, IRide _ride, IPayment _payment, IRating _rating,IAuth _auth)
         {
              context = _context;
             user = _user;
@@ -29,6 +30,7 @@ namespace Uper.UnitOfWork
             ride = _ride;
             payment = _payment;
             rating = _rating;
+            auth = _auth;
         }
     }
 }

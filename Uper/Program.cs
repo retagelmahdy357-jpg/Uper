@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -21,31 +22,27 @@ builder.Services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped<IAuth, AuthRepo>();
-
-builder.Services.AddAuthentication(op =>
+builder.Services.AddScoped<IUser, UserRepo>();
+builder.Services.AddScoped<IRide, RideRepo>();
+builder.Services.AddScoped<IRating, RatingRepo>();
+builder.Services.AddScoped<IPayment,PaymentRepo>();
+builder.Services.AddAuthentication(x =>
 {
-    op.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-})
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+x.TokenValidationParameters = new TokenValidationParameters()
+{
+    ValidateIssuer = true,
+    ValidIssuer = builder.Configuration["JWT:Issuer"],
+    ValidateAudience = true,
+    ValidAudience = builder.Configuration["JWT:Audience"],
+    ValidateIssuerSigningKey = true,
+    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
 
+    };
+});
 
-    .AddJwtBearer(options =>
- {
-     options.TokenValidationParameters = new TokenValidationParameters
-     {
-         ValidateIssuer = true,
-         ValidIssuer = builder.Configuration["Jwt:Issuer"],
-
-         ValidateAudience = true,
-         ValidAudience = builder.Configuration["Jwt:Audience"],
-
-         ValidateLifetime = true,
-         //LifetimeValidator = builder.Configuration["JWT:ExpireDate"],
-
-
-         ValidateIssuerSigningKey = true,
-         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
-     };
- });
 
 
 var app = builder.Build();
@@ -61,6 +58,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

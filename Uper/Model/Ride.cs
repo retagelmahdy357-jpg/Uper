@@ -11,7 +11,10 @@ namespace Uper.Model
         public int Id { get; set; }
         [Required, MaxLength( 150)]
        public string PickupLocation {  get; set; }
-        [Range(20,5000)]
+        [Required ,MaxLength(150)]
+
+        public string DropOffLocation {  get; set; }
+        [Range(20, 5000)]
         public int Fare {  get; set; }
         [Required]
         public string Status {  get; set; }

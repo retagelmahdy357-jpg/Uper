@@ -49,6 +49,32 @@ namespace Uper.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("appUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FullName = "Ali Mohamed",
+                            Role = "Driver",
+                            email = "Ali@example.com",
+                            password = "Password123"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FullName = "Karma Ahmed",
+                            Role = "Rider",
+                            email = "Karma@example.com",
+                            password = "Password123"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FullName = "Fatma Ebrahem",
+                            Role = "Driver",
+                            email = "Ebrahem@example.com",
+                            password = "Password123"
+                        });
                 });
 
             modelBuilder.Entity("Uper.Model.Payment", b =>
@@ -82,6 +108,26 @@ namespace Uper.Migrations
                         .IsUnique();
 
                     b.ToTable("Payment");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 100,
+                            PaymentDate = new DateTime(2026, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentMethod = "Cash",
+                            RideId = 1,
+                            Status = "Paid"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 150,
+                            PaymentDate = new DateTime(2026, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentMethod = "Card",
+                            RideId = 2,
+                            Status = "Pending"
+                        });
                 });
 
             modelBuilder.Entity("Uper.Model.Rating", b =>
@@ -109,6 +155,22 @@ namespace Uper.Migrations
                         .IsUnique();
 
                     b.ToTable("Ratings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Comment = "Excellent driver",
+                            RideId = 1,
+                            Score = 5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Comment = "Good ride",
+                            RideId = 3,
+                            Score = 4
+                        });
                 });
 
             modelBuilder.Entity("Uper.Model.Ride", b =>
@@ -121,6 +183,11 @@ namespace Uper.Migrations
 
                     b.Property<int>("DriverId")
                         .HasColumnType("int");
+
+                    b.Property<string>("DropOffLocation")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("Fare")
                         .HasColumnType("int");
@@ -144,6 +211,38 @@ namespace Uper.Migrations
                     b.HasIndex("RiderId");
 
                     b.ToTable("Rides");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DriverId = 1,
+                            DropOffLocation = "Giza",
+                            Fare = 100,
+                            PickupLocation = "Cairo",
+                            RiderId = 3,
+                            Status = "Completed"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DriverId = 2,
+                            DropOffLocation = "Maadi",
+                            Fare = 150,
+                            PickupLocation = "Nasr City",
+                            RiderId = 4,
+                            Status = "Pending"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DriverId = 2,
+                            DropOffLocation = "October",
+                            Fare = 200,
+                            PickupLocation = "Dokki",
+                            RiderId = 3,
+                            Status = "Completed"
+                        });
                 });
 
             modelBuilder.Entity("Uper.Model.User", b =>
@@ -178,6 +277,53 @@ namespace Uper.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "ahmed@gmail.com",
+                            FullName = "Ahmed Mohamed",
+                            Password = "Ahmed@123",
+                            Phone = "01012345678",
+                            Role = "Driver"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "omar@gmail.com",
+                            FullName = "Omar Ali",
+                            Password = "Omar@123",
+                            Phone = "01112345678",
+                            Role = "Driver"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "sara@gmail.com",
+                            FullName = "Sara Ahmed",
+                            Password = "Sara@123",
+                            Phone = "01212345678",
+                            Role = "Rider"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Email = "mona@gmail.com",
+                            FullName = "Mona Ali",
+                            Password = "Mona@123",
+                            Phone = "01512345678",
+                            Role = "Rider"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Email = "Retaggmail.com",
+                            FullName = "Retag Ebraheim",
+                            Password = "retag@123",
+                            Phone = "01112345678",
+                            Role = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Uper.Model.Vehicle", b =>
@@ -211,6 +357,24 @@ namespace Uper.Migrations
                         .IsUnique();
 
                     b.ToTable("Vehicles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Color = "White",
+                            DriverId = 1,
+                            Model = "Toyota Corolla",
+                            PlateNumber = "ABC123"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Color = "Black",
+                            DriverId = 2,
+                            Model = "Hyundai Elantra",
+                            PlateNumber = "XYZ456"
+                        });
                 });
 
             modelBuilder.Entity("Uper.Model.Payment", b =>
