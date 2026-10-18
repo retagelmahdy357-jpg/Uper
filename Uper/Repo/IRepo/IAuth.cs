@@ -5,8 +5,8 @@ namespace Uper.Repo.IRepo
 {
     public interface IAuth
     {
-        public Task<string> Login(AppUserDTO DTO);
-       // public Task Rigester(AppUser User);
+        public Task<string>Login(AppUserDTO userDTO);
+        public Task<bool> Rigester(AppUser user);
 
 
     }
