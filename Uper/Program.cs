@@ -43,7 +43,7 @@ x.TokenValidationParameters = new TokenValidationParameters()
     };
 });
 
-
+//bhjckbvvgikhubgiduvsni
 
 var app = builder.Build();
 
